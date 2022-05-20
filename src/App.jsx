@@ -6,8 +6,8 @@ import { Route,Routes } from 'react-router';
 //in app imports
 import './App.css';
 import Header from './Components/Header';
-import SignIn from './Components/pages/SignIn';
-import SignUp from './Components/pages/SignUp';
+import SignIn from './Pages/SignIn';
+import SignUp from './Pages/SignUp';
 
 function App() {
 	return (
