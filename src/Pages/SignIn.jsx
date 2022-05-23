@@ -1,4 +1,10 @@
-import * as React from 'react';
+import React, {useState,useEffect} from 'react';
+
+import { useNavigate } from "react-router-dom";
+
+import axios from 'axios';
+
+
 
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
@@ -10,8 +16,39 @@ import Container from '@mui/material/Container';
 
 
 export default function SignIn() {
-	const handleSubmit = () => {
+
+	const [ userLogin, setuserLogin ] = useState({
+		email: '',
+		password: ''
+	});
+
+	let navigate = useNavigate();
+
+	const handleInput = (e) => {
+		const name = e.target.name;
+		const value = e.target.value;
+
+		console.log(name, value);
+
+		setuserLogin({ ...userLogin, [name]: value });
 	};
+
+	const handleSignIn = (e) => {
+			e.preventDefault()
+	
+		 	axios.post(
+			"https://car-auction-assignment.herokuapp.com/loginProfile",
+			userLogin
+		  ).then( res => {
+			  localStorage.setItem('token',res.data.token)
+			  localStorage.setItem('user',res.data.userDetails.email)
+			  navigate('/collections')
+			  console.log( res)
+			
+		  })
+		  .catch( err => console.log(err))
+	  };
+
 
 	return (
 		<Container component="main" maxWidth="s">
@@ -33,7 +70,7 @@ export default function SignIn() {
 					</Link>
 				</Typography>
 
-				<Box component="form" onChange={handleSubmit} noValidate  sx={{ mt: 1}}>
+				<Box component="form" onSubmit={handleSignIn} noValidate  sx={{ mt: 1}}>
 					<TextField
 						margin="normal"
 						required
@@ -43,6 +80,7 @@ export default function SignIn() {
 						name="email"
 						autoComplete="email"
 						autoFocus
+						onChange={handleInput}
 					/>
 					<TextField
 						margin="normal"
@@ -53,6 +91,7 @@ export default function SignIn() {
 						type="password"
 						id="password"
 						autoComplete="current-password"
+						onChange={handleInput}
 					/>
           <Grid container>
 						<Grid item xs>

@@ -1,0 +1,41 @@
+{
+  "users": [
+    {
+      "id": 1,
+      "name": "bhaipo",
+      "email": "bhaipo@gmail.com"
+    },
+    {
+      "email": "Rishov",
+      "password": "Rishov",
+      "id": 2
+    },
+    {
+      "email": "asdas",
+      "password": "asdasd",
+      "id": 3
+    },
+    {
+      "id": 4
+    },
+    {
+      "id": 5
+    },
+    {
+      "email": "asd",
+      "password": "asdasd",
+      "id": 6
+    }
+  ],
+  "cardetails": [
+    {
+      "id": 1,
+      "car": "some comment",
+      "postId": 1
+    }
+  ],
+  "admin": {
+    "name": "typicode",
+    "emial": "admin@admin.com"
+  }
+}
