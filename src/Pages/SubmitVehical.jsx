@@ -8,12 +8,14 @@ const SubmitVehical = () => {
 	const [ company, setcompany ] = useState('');
 	const [ year, setyear ] = useState('');
 	const [ auctionEnd, setauctionEnd ] = useState('');
+	const [ image, setImage ] = useState('');
 
 	let payload = {
 		model: model,
 		company: company,
 		year: year,
-		auctionEndTime: auctionEnd
+		auctionEndTime: auctionEnd,
+		image:image
 	};
 
 	const handleSubmit = (e) => {
@@ -93,8 +95,14 @@ const SubmitVehical = () => {
 						</div>
 					</div>
 					<div className="form-row">
-						<label for="img">Select image:</label>
-						<input type="file" id="img" name="img" accept="image/*" />
+						<label htmlFor="img">Select image:</label>
+						<input 
+						type="file" 
+						id="img" 
+						name="img" 
+						accept="image/*"
+						onChange={(e) => setImage(e.target.value)}
+						 />
 					</div>
 					<div className="form-row">
 						<button className="btn btn-primary" type="submit">

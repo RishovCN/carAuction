@@ -72,6 +72,7 @@ code {
   font-size: 20px;
   padding: 20px;
   color: white;
+
 }
 
 .MuiToolbar-root nav a {
@@ -89,4 +90,8 @@ code {
   background-color: #b3916b;
   border: none;
   margin: 10px;
+}
+
+.car_collection {
+  max-width: 100%;
 }
