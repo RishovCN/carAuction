@@ -80,3 +80,13 @@ code {
 .MuiToolbar-root nav .active a {
   color: rgb(179, 145, 107) !important;
 }
+
+.form-row{
+  justify-content: center;
+}
+
+.btn {
+  background-color: #b3916b;
+  border: none;
+  margin: 10px;
+}
