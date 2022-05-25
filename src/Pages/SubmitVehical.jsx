@@ -39,7 +39,7 @@ const SubmitVehical = () => {
 				<h2>Process</h2>
 				<div className="tabButtons">
 					<ul>
-						<li className="tab1Btn active">Cool Collections</li>
+						<li className="tab1Btn active" style={{color:'white !important'}}>Cool Collections</li>
 						<li className="tab2Btn">Awesome Auctions</li>
 					</ul>
 				</div>
