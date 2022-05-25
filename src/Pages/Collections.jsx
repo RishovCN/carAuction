@@ -7,11 +7,15 @@ import Container from '@mui/material/Container';
 import axios from 'axios';
 
 const Collections = () => {
+	const companys = new Set();
+	const [ company, setcompany ] = useState([ ...companys ]);
 	const [ carDetails, setcarDetails ] = useState([]);
 
 	useEffect(() => {
-		axios.get('http://localhost:3001/cardetails').then((res) => {
+		axios.get(`${process.env.REACT_APP_JSON_API}cardetails`).then((res) => {
 			setcarDetails(res.data);
+			res.data.map((details) => companys.add(details.company));
+			setcompany([ ...companys ]);
 		});
 	}, []);
 
@@ -43,17 +47,6 @@ const Collections = () => {
 								>
 									All Auction
 								</a>
-								<div className="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-									<a className="dropdown-item" href="#">
-										Action
-									</a>
-									<a className="dropdown-item" href="#">
-										Another action
-									</a>
-									<a className="dropdown-item" href="#">
-										Something else here
-									</a>
-								</div>
 							</li>
 							<li className="nav-item dropdown">
 								<a
@@ -69,15 +62,11 @@ const Collections = () => {
 
 								<div className="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
 									<input type="text" className="dropdown-item" id="dropdown-input" />
-									<a className="dropdown-item" href="#">
-										Action
-									</a>
-									<a className="dropdown-item" href="#">
-										Another action
-									</a>
-									<a className="dropdown-item" href="#">
-										Something else here
-									</a>
+									{company.map((details) => (
+										<a className="dropdown-item" href="#" key={details}>
+											{details}
+										</a>
+									))}
 								</div>
 							</li>
 							<li className="nav-item dropdown">

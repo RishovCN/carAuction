@@ -37,8 +37,7 @@ export default function SignIn() {
 			e.preventDefault()
 	
 		 	axios.post(
-			"https://car-auction-assignment.herokuapp.com/loginProfile",
-			userLogin
+			`${process.env.REACT_APP_CAR_AUCTION_HEROKU_API}loginProfile`,userLogin
 		  ).then( res => {
 			  sessionStorage.setItem('token',res.data.token)
 			  sessionStorage.setItem('user',res.data.userDetails.email)
