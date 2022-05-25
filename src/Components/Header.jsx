@@ -1,6 +1,7 @@
+//React imports
 import React from 'react';
-import { useState, useEffect} from 'react';
-import { Link } from 'react-router-dom';
+import { useState, useEffect } from 'react';
+import { NavLink } from 'react-router-dom';
 
 //Material Ui imports
 import Paper from '@mui/material/Paper';
@@ -10,18 +11,20 @@ import SearchIcon from '@mui/icons-material/Search';
 import { AppBar, Toolbar, Typography } from '@mui/material';
 
 const Header = () => {
-
-	let [display,setDisplay]=useState('none')
-	 let user;
-
-
+	let [ display, setDisplay ] = useState('none');
+	let user;
 	
+	let activeClassName = "active";
 
-	useEffect(() => {
-	user = sessionStorage.getItem("user");
-	if(user == "admin@gmail.com") { setDisplay('block')}
-	}, [user])
-	
+	useEffect(
+		() => {
+			user = sessionStorage.getItem('user');
+			if (user === 'admin@gmail.com') {
+				setDisplay('block');
+			}
+		},
+		[ user ]
+	);
 
 	// const links = [
 	// 	{ name: 'ABOUT', path: '/about' },
@@ -50,26 +53,37 @@ const Header = () => {
 					<Typography sx={{ p: '2px 4px', align: 'right', color: 'black' }}>ABOUT</Typography>
 					<Typography sx={{ p: '2px 4px', align: 'right', color: 'black' }}>AUCTION</Typography>
 					<Typography sx={{ p: '2px 4px', align: 'right', color: 'black' }}>
-						<Link style={{ textDecoration: 'none', color: '#b3916b' }} to="/Collections">
+						<NavLink
+							className={({ isActive }) => (isActive ? activeClassName : undefined)}
+							// style={{ textDecoration: 'none', color: '#b3916b' }}
+							to="/Collections"
+						>
 							COLLECTION
-						</Link>
+						</NavLink>
 					</Typography>
 					<Typography sx={{ p: '2px 4px', align: 'right', color: 'black' }}>NEWS</Typography>
 
 					{/* <Typography sx = { isAdmin? {display:'block', p: '2px 4px', align: 'right', color: 'black' }:{display:'none', p: '2px 4px', align: 'right', color: 'black' }}> */}
-					<Typography sx = {{display:`${display}`, p: '2px 4px', align: 'right', color: 'black' }}>
-						<Link style={{ textDecoration: 'none', color: '#b3916b' }} to="/submitVehical">
+					<Typography sx={{ display: `${display}`, p: '2px 4px', align: 'right', color: 'black' }}>
+						<NavLink
+							className={({ isActive }) => (isActive ? activeClassName : undefined)}
+							// style={{ textDecoration: 'none', color: '#b3916b' }}
+							to="/submitVehical"
+						>
 							SUBMIT VEHICAL
-						</Link>
+						</NavLink>
 					</Typography>
 					<Typography sx={{ p: '2px 4px', align: 'right', color: 'black' }}>
-						<Link style={{ textDecoration: 'none', color: '#b3916b' }} to="/">
+						<NavLink
+							className={({ isActive }) => (isActive ? activeClassName : undefined)}
+							// style={{ textDecoration: 'none', color: '#b3916b' }}
+							to="/"
+						>
 							SIGN IN
-						</Link>
-					</Typography>	
-				
+						</NavLink>
+					</Typography>
 
-				 	{/* {links.map((link,index)=> <Typography className={isActive === link.name ? 'active' : ''}  onClick={()=> setActive(link.name)} sx={{ p: '2px 4px', align: 'right', color: 'black' }}>
+					{/* {NavLinks.map((NavLink,index)=> <Typography className={isActive === NavLink.name ? 'active' : ''}  onClick={()=> setActive(link.name)} sx={{ p: '2px 4px', align: 'right', color: 'black' }}>
 					 
 					 <Link  style={{ textDecoration: 'none', color: '#b3916b' }} to={link.path}>
 							{link.name}

@@ -76,7 +76,8 @@ code {
 }
 
 .MuiToolbar-root nav a {
-  color: #000000 !important;
+  color: #000000;
+  text-decoration: none;
 }
 .MuiToolbar-root nav .active a {
   color: rgb(179, 145, 107) !important;
@@ -94,4 +95,13 @@ code {
 
 .car_collection {
   max-width: 100%;
+}
+
+.nav-link {
+  border: none;
+  background-color: ghostwhite;
+}
+
+.active{
+  color: #b3916b !important;
 }

@@ -1,9 +1,13 @@
+//react imports 
 import React, { useEffect, useState } from 'react';
+
+//Css imports
 import '../App.css';
 
-import Link from '@mui/material/Link';
-
+//MUI imports
 import Container from '@mui/material/Container';
+
+//Third Party library imports
 import axios from 'axios';
 
 const Collections = () => {
@@ -70,7 +74,6 @@ const Collections = () => {
 							<li className="nav-item dropdown">
 								<a
 									className="nav-link dropdown-toggle"
-									href="#"
 									id="navbarDropdownMenuLink"
 									data-toggle="dropdown"
 									aria-haspopup="true"
@@ -82,7 +85,7 @@ const Collections = () => {
 							<li className="nav-item dropdown">
 								<a
 									className="nav-link dropdown-toggle"
-									href="#"
+
 									id="navbarDropdownMenuLink"
 									data-toggle="dropdown"
 									aria-haspopup="true"

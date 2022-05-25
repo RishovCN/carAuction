@@ -3,9 +3,10 @@ import React, { Fragment } from 'react';
 import { BrowserRouter } from 'react-router-dom';
 import { Route, Routes } from 'react-router';
 
-//in app imports
+//Css imports
 import './App.css';
 
+//pages and component Imports
 import Header from './Components/Header';
 import SignIn from './Pages/SignIn';
 import SignUp from './Pages/SignUp';
