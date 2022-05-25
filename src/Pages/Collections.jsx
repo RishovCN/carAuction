@@ -9,6 +9,7 @@ import axios from 'axios';
 const Collections = () => {
 	const companys = new Set();
 	const [ company, setcompany ] = useState([ ...companys ]);
+	const [ searResult, setsearResult ] = useState([ ...companys ]);
 	const [ carDetails, setcarDetails ] = useState([]);
 
 	useEffect(() => {
@@ -16,9 +17,20 @@ const Collections = () => {
 			setcarDetails(res.data);
 			res.data.map((details) => companys.add(details.company));
 			setcompany([ ...companys ]);
+			setsearResult([ ...companys ]);
 		});
 	}, []);
 
+	const handleSearch = (e) => {
+		const Search = e.target.value;
+
+		const searchResult = company.filter((items) => items.includes(Search.toUpperCase()));
+		setsearResult(searchResult);
+		console.log(Search);
+		if (!Search) {
+			setsearResult(company);
+		}
+	};
 	return (
 		<Container component="main" maxWidth="s">
 			<div className="row">
@@ -61,8 +73,13 @@ const Collections = () => {
 								</a>
 
 								<div className="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-									<input type="text" className="dropdown-item" id="dropdown-input" />
-									{company.map((details) => (
+									<input
+										type="text"
+										className="dropdown-item"
+										id="dropdown-input"
+										onKeyUp={handleSearch}
+									/>
+									{searResult.map((details) => (
 										<a className="dropdown-item" href="#" key={details}>
 											{details}
 										</a>
