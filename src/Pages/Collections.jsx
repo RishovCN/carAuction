@@ -11,26 +11,45 @@ const Collections = () => {
 	const [ company, setcompany ] = useState([ ...companys ]);
 	const [ searResult, setsearResult ] = useState([ ...companys ]);
 	const [ carDetails, setcarDetails ] = useState([]);
+	const [ filterCarDetails, setfilterCarDetails ] = useState([]);
 
 	useEffect(() => {
 		axios.get(`${process.env.REACT_APP_JSON_API}cardetails`).then((res) => {
 			setcarDetails(res.data);
+			setfilterCarDetails(res.data)
 			res.data.map((details) => companys.add(details.company));
 			setcompany([ ...companys ]);
 			setsearResult([ ...companys ]);
 		});
 	}, []);
 
-	const handleSearch = (e) => {
+	const searchDropdown = (e) => {
 		const Search = e.target.value;
 
 		const searchResult = company.filter((items) => items.includes(Search.toUpperCase()));
 		setsearResult(searchResult);
-		console.log(Search);
 		if (!Search) {
 			setsearResult(company);
 		}
 	};
+
+	const handleMenu =  (e) => { 
+		console.log(e.target.getAttribute('data'))
+
+		const search = e.target.getAttribute('data')
+
+		const searchResult = carDetails.filter( details => Object.values(details).join('').toLowerCase().includes(search.toLowerCase()))
+
+		setfilterCarDetails(searchResult)
+
+		console.log('car',searchResult)
+	
+	}
+
+	const handleReset = () => {
+		setfilterCarDetails(carDetails)
+	}
+
 	return (
 		<Container component="main" maxWidth="s">
 			<div className="row">
@@ -77,10 +96,10 @@ const Collections = () => {
 										type="text"
 										className="dropdown-item"
 										id="dropdown-input"
-										onKeyUp={handleSearch}
+										onKeyUp={searchDropdown}
 									/>
 									{searResult.map((details) => (
-										<a className="dropdown-item" href="#" key={details}>
+										<a className="dropdown-item" data={details} onClick={handleMenu} key={details}>
 											{details}
 										</a>
 									))}
@@ -89,10 +108,11 @@ const Collections = () => {
 							<li className="nav-item dropdown">
 								<a
 									className="nav-link"
-									href="#"
+									data='reset'
 									data-toggle="dropdown"
 									aria-haspopup="true"
 									aria-expanded="false"
+									onClick={handleReset}
 								>
 									Reset Menu
 								</a>
@@ -102,7 +122,7 @@ const Collections = () => {
 				</nav>
 			</div>
 			<div className="row">
-				{carDetails.map((details) => (
+				{filterCarDetails.map((details) => (
 					<div className="col-lg-4 col-sm-6 col-xs-12" key={details.id}>
 						<div className="">
 							<div className="">
