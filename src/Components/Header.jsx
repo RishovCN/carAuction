@@ -11,8 +11,7 @@ import { AppBar, Toolbar, Typography } from '@mui/material';
 
 const Header = () => {
 
-	let [isActive,setActive]=useState("")
-	const [isAdmin, setisAdmin] = useState(false)
+	let [display,setDisplay]=useState('none')
 	 let user;
 
 
@@ -20,7 +19,7 @@ const Header = () => {
 
 	useEffect(() => {
 	user = sessionStorage.getItem("user");
-	if(user == "admin@gmail.com") setisAdmin(true)
+	if(user == "admin@gmail.com") { setDisplay('block')}
 	}, [user])
 	
 
@@ -57,7 +56,8 @@ const Header = () => {
 					</Typography>
 					<Typography sx={{ p: '2px 4px', align: 'right', color: 'black' }}>NEWS</Typography>
 
-					<Typography sx = { isAdmin? {display:'block', p: '2px 4px', align: 'right', color: 'black' }:{display:'none', p: '2px 4px', align: 'right', color: 'black' }}>
+					{/* <Typography sx = { isAdmin? {display:'block', p: '2px 4px', align: 'right', color: 'black' }:{display:'none', p: '2px 4px', align: 'right', color: 'black' }}> */}
+					<Typography sx = {{display:`${display}`, p: '2px 4px', align: 'right', color: 'black' }}>
 						<Link style={{ textDecoration: 'none', color: '#b3916b' }} to="/submitVehical">
 							SUBMIT VEHICAL
 						</Link>
