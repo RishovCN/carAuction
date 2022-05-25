@@ -40,8 +40,8 @@ export default function SignIn() {
 			"https://car-auction-assignment.herokuapp.com/loginProfile",
 			userLogin
 		  ).then( res => {
-			  localStorage.setItem('token',res.data.token)
-			  localStorage.setItem('user',res.data.userDetails.email)
+			  sessionStorage.setItem('token',res.data.token)
+			  sessionStorage.setItem('user',res.data.userDetails.email)
 			  navigate('/collections')
 			  console.log( res)
 			

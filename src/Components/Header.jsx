@@ -19,7 +19,7 @@ const Header = () => {
 	
 
 	useEffect(() => {
-	user = localStorage.getItem("user");
+	user = sessionStorage.getItem("user");
 	if(user == "admin@gmail.com") setisAdmin(true)
 	}, [user])
 	
