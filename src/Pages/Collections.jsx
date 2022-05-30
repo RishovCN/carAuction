@@ -13,7 +13,7 @@ import axios from 'axios';
 const Collections = () => {
 	const companys = new Set();
 	const [ company, setcompany ] = useState([ ...companys ]);
-	const [ searResult, setsearResult ] = useState([ ...companys ]);
+	const [ searchResult, setsearchResult ] = useState([ ...companys ]);
 	const [ carDetails, setcarDetails ] = useState([]);
 	const [ filterCarDetails, setfilterCarDetails ] = useState([]);
 
@@ -23,22 +23,22 @@ const Collections = () => {
 			setfilterCarDetails(res.data)
 			res.data.map((details) => companys.add(details.company));
 			setcompany([ ...companys ]);
-			setsearResult([ ...companys ]);
+			setsearchResult([ ...companys ]);
 		});
 	}, []);
 
 	const searchDropdown = (e) => {
-		const Search = e.target.value;
+		const search = e.target.value;
 
-		const searchResult = company.filter((items) => items.includes(Search.toUpperCase()));
-		setsearResult(searchResult);
-		if (!Search) {
-			setsearResult(company);
+		const searchResult = company.filter((items) => items.includes(search.toUpperCase()));
+		setsearchResult(searchResult);
+		if (!search) {
+			setsearchResult(company);
 		}
 	};
 
 	const handleMenu =  (e) => { 
-		console.log(e.target.getAttribute('data'))
+		// console.log(e.target.getAttribute('data'))
 
 		const search = e.target.getAttribute('data')
 
@@ -46,7 +46,7 @@ const Collections = () => {
 
 		setfilterCarDetails(searchResult)
 
-		console.log('car',searchResult)
+		// console.log('car',searchResult)
 	
 	}
 
@@ -101,7 +101,7 @@ const Collections = () => {
 										id="dropdown-input"
 										onKeyUp={searchDropdown}
 									/>
-									{searResult.map((details) => (
+									{searchResult.map((details) => (
 										<a className="dropdown-item" data={details} onClick={handleMenu} key={details}>
 											{details}
 										</a>

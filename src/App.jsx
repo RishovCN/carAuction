@@ -14,6 +14,7 @@ import Collections from './Pages/Collections';
 import ProtectedRoutes from './Components/ProtectedRoute';
 import SubmitVehical from './Pages/SubmitVehical';
 import Footer from './Components/Footer';
+import Search from './Pages/Search';
 
 function App() {
 	return (
@@ -27,6 +28,7 @@ function App() {
 					<Route path="/" element={<SignIn />} />
 					<Route path="/signUp" element={<SignUp />} />
 					<Route path="/collections" element={<Collections />} />
+					<Route path="/search" element={<Search />} />
 				</Routes>
 				<Footer/>
 			</BrowserRouter>
