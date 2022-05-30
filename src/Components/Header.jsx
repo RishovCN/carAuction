@@ -19,9 +19,8 @@ const Header = () => {
 	const [ display, setDisplay ] = useState('none');
 
 	const companys = new Set();
-	const [ company, setcompany ] = useState([ ...companys ]);
 
-	const [searchKey, setsearchKey] = useState('');
+	const [ company, setcompany ] = useState([ ...companys ]);
 
 	const [searchMenu, setsearchMenu] = useState([]);
 
@@ -53,8 +52,7 @@ const Header = () => {
 		const search = e.target.value;
 
 		const searchResult = company.filter((items) => items.includes(search.toUpperCase()));
-		setsearchMenu(searchResult);
-		setsearchKey(search);
+		setsearchMenu(searchResult)
 		if (!search) {
 			setsearchMenu([]);
 		}
@@ -68,7 +66,6 @@ const Header = () => {
 		navigate('/search', {state:seletectedMenu});
 		setsearchMenu([]);
 
-		// console.log(seletectedMenu)
 
 	}
 
