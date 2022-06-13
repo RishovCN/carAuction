@@ -1,8 +1,10 @@
 //React imports
 import React, {useState} from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 
 import { useNavigate } from "react-router-dom";
 
+import { setUser } from '../slice/userSlice';
 //Third Party imports
 import axios from 'axios';
 
@@ -23,27 +25,34 @@ export default function SignIn() {
 		password: ''
 	});
 
+	const user = useSelector( state => state.user)
+
+	console.log('outSide:', user)
+
 	let navigate = useNavigate();
 
-	const handleInput = (e) => {
-		const name = e.target.name;
-		const value = e.target.value;
+	let dispatch = useDispatch()
+
+	const handleInput = (event) => {
+		const name = event.target.name;
+		const value = event.target.value;
 
 		console.log(name, value);
-
+		
 		setuserLogin({ ...userLogin, [name]: value });
 	};
 
 	const handleSignIn = (e) => {
 			e.preventDefault()
+			
 	
 		 	axios.post(
 			'https://car-auction-assignment.herokuapp.com/loginProfile',userLogin
 		  ).then( res => {
 			  sessionStorage.setItem('token',res.data.token)
-			  sessionStorage.setItem('user',res.data.userDetails.email)
+			  dispatch(setUser(res.data))
 			  navigate('/collections')
-			  console.log( res)
+			//   console.log( res)
 			
 		  })
 		  .catch( err => console.log(err))

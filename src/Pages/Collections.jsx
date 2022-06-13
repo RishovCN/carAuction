@@ -1,5 +1,9 @@
-//react imports 
+//react imports
 import React, { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+
+//redux actions imports
+import { fetchCarDetail } from '../slice/carDetailSlice';
 
 //Css imports
 import '../App.css';
@@ -7,25 +11,44 @@ import '../App.css';
 //MUI imports
 import Container from '@mui/material/Container';
 
-//Third Party library imports
-import axios from 'axios';
 
 const Collections = () => {
+	
 	const companys = new Set();
+
+	const dispatch = useDispatch();
+
+	const carDetail = useSelector((state) => state.carDetails);
+
+	console.log(carDetail);
+
 	const [ company, setcompany ] = useState([ ...companys ]);
 	const [ searchResult, setsearchResult ] = useState([ ...companys ]);
 	const [ carDetails, setcarDetails ] = useState([]);
 	const [ filterCarDetails, setfilterCarDetails ] = useState([]);
 
 	useEffect(() => {
-		axios.get(`${process.env.REACT_APP_JSON_API}cardetails`).then((res) => {
-			setcarDetails(res.data);
-			setfilterCarDetails(res.data)
-			res.data.map((details) => companys.add(details.company));
-			setcompany([ ...companys ]);
-			setsearchResult([ ...companys ]);
-		});
+		dispatch(fetchCarDetail());
 	}, []);
+
+	useEffect(
+		() => {
+			
+			setfilterCarDetails(carDetail.carDetail);
+
+			setcarDetails(carDetail.carDetail);
+
+			console.log('filter', filterCarDetails)
+
+			carDetail.carDetail.map((details) => companys.add(details.company));
+
+			setcompany([ ...companys ]);
+
+			setsearchResult([ ...companys ]);
+
+		}, [ carDetail ]);
+
+	console.log('filter', filterCarDetails);
 
 	const searchDropdown = (e) => {
 		const search = e.target.value;
@@ -37,22 +60,17 @@ const Collections = () => {
 		}
 	};
 
-	const handleMenu =  (e) => { 
-		// console.log(e.target.getAttribute('data'))
-
+	const handleMenu = (e) => {
+		console.log(e.target.getAttribute('data'))
 		const search = e.target.getAttribute('data')
-
 		const searchResult = carDetails.filter( details => Object.values(details).join('').toLowerCase().includes(search.toLowerCase()))
-
 		setfilterCarDetails(searchResult)
-
-		// console.log('car',searchResult)
-	
-	}
+		console.log('car',searchResult)
+	};
 
 	const handleReset = () => {
-		setfilterCarDetails(carDetails)
-	}
+		setfilterCarDetails(carDetails);
+	};
 
 	return (
 		<Container component="main" maxWidth="s">
@@ -85,7 +103,6 @@ const Collections = () => {
 							<li className="nav-item dropdown">
 								<a
 									className="nav-link dropdown-toggle"
-
 									id="navbarDropdownMenuLink"
 									data-toggle="dropdown"
 									aria-haspopup="true"
@@ -111,7 +128,7 @@ const Collections = () => {
 							<li className="nav-item dropdown">
 								<a
 									className="nav-link"
-									data='reset'
+									data="reset"
 									data-toggle="dropdown"
 									aria-haspopup="true"
 									aria-expanded="false"

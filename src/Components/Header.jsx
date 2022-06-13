@@ -13,6 +13,7 @@ import InputBase from '@mui/material/InputBase';
 import IconButton from '@mui/material/IconButton';
 import SearchIcon from '@mui/icons-material/Search';
 import { AppBar, Toolbar, Typography } from '@mui/material';
+import { useSelector } from 'react-redux';
 
 const Header = () => {
 
@@ -24,9 +25,12 @@ const Header = () => {
 
 	const [searchMenu, setsearchMenu] = useState([]);
 
+	const user = useSelector( state => state.user)
+
+	console.log('header',user.userDetails)
 	const navigate = useNavigate();
 
-	let user;
+	
 	
 	let activeClassName = "active";
 
@@ -38,8 +42,8 @@ const Header = () => {
 				setcompany([ ...companys ]);
 			});
 
-			user = sessionStorage.getItem('user');
-			if (user === 'admin@gmail.com') {
+		
+			if (user.userDetails.fullName === 'Admin') {
 				setDisplay('block');
 			}
 		},
@@ -69,14 +73,6 @@ const Header = () => {
 
 	}
 
-	// const links = [
-	// 	{ name: 'ABOUT', path: '/about' },
-	// 	{ name: 'AUCTION', path: '/auction' },
-	// 	{ name: 'COLLECTION', path: '/collections' },
-	// 	{ name: 'NEWS', path: '/news' },
-	// 	{ name: 'SUBMIT VEHICLES', path: '/submitVehical'},
-	// 	{ name: 'SIGN IN', path: '/' }
-	// ];
 	return (
 		<AppBar sx={{ backgroundColor: 'white', borderBottom: '3px solid #b3916b', position: 'fixed' }}>
 			<Toolbar sx={{ display: 'flex', alignItems: 'center', p: '20px' }}>
@@ -140,13 +136,6 @@ const Header = () => {
 							SIGN IN
 						</NavLink>
 					</Typography>
-
-					{/* {NavLinks.map((NavLink,index)=> <Typography className={isActive === NavLink.name ? 'active' : ''}  onClick={()=> setActive(link.name)} sx={{ p: '2px 4px', align: 'right', color: 'black' }}>
-					 
-					 <Link  style={{ textDecoration: 'none', color: '#b3916b' }} to={link.path}>
-							{link.name}
-						</Link>
-					 </Typography>)}  */}
 				</nav>
 			</Toolbar>
 			

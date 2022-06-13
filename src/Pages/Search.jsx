@@ -1,6 +1,9 @@
 //react imports
-import React, {useEffect,useState} from 'react'
-import { useLocation } from 'react-router'
+import React, {useEffect,useState} from 'react';
+import { useLocation } from 'react-router';
+import { useDispatch, useSelector } from 'react-redux';
+
+import { fetchCarDetail } from '../slice/carDetailSlice'
 
 //MUI imports
 import { Container } from '@mui/system';
@@ -10,19 +13,27 @@ import axios from 'axios';
 
 const Search = () => {
   const {state} = useLocation();
+
+  const dispatch = useDispatch();
+
+  const carDetails = useSelector( state => state.carDetails)
   // console.log(state)
 
   const [searchCarResult, setsearchCarResult] = useState([])
 
   useEffect(() => {
-    axios.get(`${process.env.REACT_APP_JSON_API}cardetails`).then((res) => {
-			const carDetails = res.data;
-      const searchCarResult = carDetails.filter( details => Object.values(details).join('').toLowerCase().includes(state.toLowerCase()))
-      // console.log(searchCarResult)
-      setsearchCarResult(searchCarResult);
 
-		});
-  },[state])
+		dispatch(fetchCarDetail())
+    
+  },[])
+  
+
+  useEffect(() => {
+
+	const searchCarResult = carDetails.carDetail.filter( details => Object.values(details).join('').toLowerCase().includes(state.toLowerCase()))
+	// console.log(searchCarResult)
+	setsearchCarResult(searchCarResult);
+  }, [state])
   
 
   return (
